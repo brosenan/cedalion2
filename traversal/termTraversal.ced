@@ -1,0 +1,21 @@
+'/bootstrap':defAtom(traversal::'/bootstrap':type).
+'/bootstrap':signature(termTraversal(TTerm1,Trav1,Trav2,TTerm2)::'/bootstrap':pred,[TTerm1::'/bootstrap':typedTerm,Trav1::traversal,Trav2::traversal,TTerm2::'/bootstrap':typedTerm]).
+'/bootstrap':signature(testTraversal(X)::traversal,[X::'/bootstrap':string]).
+'/util':behavior(termTraversal(TTerm1,Trav1,Trav2,TTerm2)::'/bootstrap':pred,!'should consule traverseAtomic for non-compound terms', (termTraversal(2::'/bootstrap':number,testTraversal(!'test1'),TraversalAfter,TTermAfter),'/util':assertEqual(TTermAfter,3::'/bootstrap':number,'/bootstrap':typedTerm),'/util':assertEqual(TraversalAfter,testTraversal(!atomic),traversal))).
+'/util':behavior(termTraversal(TTerm1,Trav1,Trav2,TTerm2)::'/bootstrap':pred,!'should consult traverseUp for compound terms',builtin:catch((termTraversal(builtin:succ(4,Y)::'/bootstrap':pred,testTraversal(!'test1'),TraversalAfter,TTermAfter),builtin:fail),testTraversalException(!up),builtin:true)).
+'/util':behavior(termTraversal(TTerm1,Trav1,Trav2,TTerm2)::'/bootstrap':pred,!'should pass the result of traverseUp to the children',builtin:catch((termTraversal(builtin:succ(4,Y)::'/bootstrap':pred,testTraversal(!'test2'),TraversalAfter,TTermAfter),builtin:fail),testTraversalException(!four),builtin:true)).
+'/util':behavior(termTraversal(TTerm1,Trav1,Trav2,TTerm2)::'/bootstrap':pred,!'should chain the traversal state among the children', (termTraversal(builtin:succ(4,Y)::'/bootstrap':pred,testTraversal(!'test3'),TraversalAfter,TTermAfter),'/util':assertEqual(TraversalAfter,testTraversal(!'test3-done'),traversal),'/util':assertEqual(TTermAfter,builtin:succ(5,Y)::'/bootstrap':pred,'/bootstrap':typedTerm))).
+annotation:shrink((termTraversal(Term1::Type,Trav1,Trav3,Term2::Type):-builtin:if(builtin:compound(Term1::Type), (traverseUp(Trav1,Term1::Type,Trav2),'/bootstrap':safeParseTerm(Term1::Type,Name,Args),traverseChildren(Args,Trav2,Trav3,ArgsPrime),builtin:parseTerm(Term2::Type,Name,ArgsPrime)),traverseAtomic(Trav1,Term1::Type,Term2::Type,Trav3)))).
+'/bootstrap':signature(traverseChildren(Args,Trav1,Trav2,ArgsPrime)::'/bootstrap':pred,[Args::'/bootstrap':list('/bootstrap':typedTerm),Trav1::traversal,Trav2::traversal,ArgsPrime::'/bootstrap':list('/bootstrap':typedTerm)]).
+traverseChildren([],Trav,Trav,[]):-builtin:true.
+annotation:shrink((traverseChildren([Arg|Args],Trav1,Trav3,[ArgPrime|ArgsPrime]):-termTraversal(Arg,Trav1,Trav2,ArgPrime),traverseChildren(Args,Trav2,Trav3,ArgsPrime))).
+'/bootstrap':signature(traverseAtomic(Trav1,TTerm1,TTerm2,Trav2)::'/bootstrap':pred,[Trav1::traversal,TTerm1::'/bootstrap':typedTerm,TTerm2::'/bootstrap':typedTerm,Trav2::traversal]).
+traverseAtomic(testTraversal(!'test1'),N::'/bootstrap':number,NPrime::'/bootstrap':number,testTraversal(!atomic)):-builtin:succ(N,NPrime).
+'/bootstrap':signature(testTraversalException(X)::'/bootstrap':exception,[X::'/bootstrap':string]).
+'/bootstrap':signature(traverseUp(Trav1,TTerm1,Trav2)::'/bootstrap':pred,[Trav1::traversal,TTerm1::'/bootstrap':typedTerm,Trav2::traversal]).
+annotation:shrink((traverseUp(testTraversal(!'test1'),TTerm,_):-'/util':assertStracturallyEqual(TTerm,builtin:succ(4,Y)::'/bootstrap':pred,'/bootstrap':typedTerm),builtin:throw(testTraversalException(!up)))).
+traverseUp(testTraversal(!'test2'),TTerm,testTraversal(!'expect4')):-builtin:true.
+traverseAtomic(testTraversal(!'expect4'),4::'/bootstrap':number,_,_):-builtin:throw(testTraversalException(!four)).
+traverseUp(testTraversal(!'test3'),_,testTraversal(!'test3-4')):-builtin:true.
+traverseAtomic(testTraversal(!'test3-4'),4::'/bootstrap':number,5::'/bootstrap':number,testTraversal(!'test3-Y')):-builtin:true.
+traverseAtomic(testTraversal(!'test3-Y'),Y::'/bootstrap':number,Y::'/bootstrap':number,testTraversal(!'test3-done')):-builtin:true.
