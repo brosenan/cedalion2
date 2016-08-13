@@ -1,0 +1,11 @@
+'/bootstrap':signature(lexLessThan(S1,S2)::'/bootstrap':pred,[S1::'/bootstrap':string,S2::'/bootstrap':string]).
+'/bootstrap':projection(lexLessThan(S1,S2)::'/bootstrap':pred,'/bootstrap':horiz(['/bootstrap':vis(S1::'/bootstrap':string),'/bootstrap':label(! (<)),'/bootstrap':vis(S2::'/bootstrap':string)])).
+'/util':behavior(lexLessThan(S1,S2)::'/bootstrap':pred,!'should succeed if S1 is empty and S2 is not',lexLessThan(!a,!ab)).
+'/util':behavior(lexLessThan(S1,S2)::'/bootstrap':pred,!'should fail if S1 equals S2',\+lexLessThan(!a,!a)).
+'/util':behavior(lexLessThan(S1,S2)::'/bootstrap':pred,!'should succeed if S1 is lexically less than S2',lexLessThan(!a,!b)).
+lexLessThan(S1,S2):-builtin:charCodes(S1,C1),builtin:charCodes(S2,C2),lexLessThanCodes(C1,C2).
+'/bootstrap':signature(lexLessThanCodes(C1,C2)::'/bootstrap':pred,[C1::'/bootstrap':list('/bootstrap':number),C2::'/bootstrap':list('/bootstrap':number)]).
+'/bootstrap':projection(lexLessThanCodes(C1,C2)::'/bootstrap':pred,'/bootstrap':horiz(['/bootstrap':vis(C1::'/bootstrap':list('/bootstrap':number)),'/bootstrap':color('/bootstrap':label(! (<)),cpi:rgb(255,0,0)),'/bootstrap':vis(C2::'/bootstrap':list('/bootstrap':number))])).
+lexLessThanCodes([],[_|_]):-builtin:true.
+lexLessThanCodes([First|Rest],[First|RestPrime]):-lexLessThanCodes(Rest,RestPrime).
+lexLessThanCodes([A|_],[B|_]):-builtin:greaterThen(B,A).
