@@ -8,4 +8,8 @@ traverseUp(testTraversal(!'test3'),_,testTraversal(!'test3-4')):-builtin:true.
 traverseAtomic(testTraversal(!'test3-4'),4::'/bootstrap':number,5::'/bootstrap':number,testTraversal(!'test3-Y')):-builtin:true.
 traverseAtomic(testTraversal(!'test3-Y'),Y::'/bootstrap':number,Y::'/bootstrap':number,testTraversal(!'test3-done')):-builtin:true.
 annotation:shrink((traverseAtomic(testTraversal(!'test4'),Four::'/bootstrap':number,6::'/bootstrap':number,testTraversal(!'test4')):-builtin:equals(Four::'/bootstrap':number,4::'/bootstrap':number))).
-traverseDown(testTraversal(!'test5'),_,_):-builtin:throw(testTraversalException(!down)).
+traverseDown(_,testTraversal(!'test5'),_,_,_):-builtin:throw(testTraversalException(!down)).
+annotation:shrink((traverseRename(testTraversal(!'test6'),TTerm,Name1,Name2):-'/util':assertStracturallyEqual(TTerm,builtin:succ(4,Y)::'/bootstrap':pred,'/bootstrap':typedTerm),builtin:strcat(Name1,!'123',Name2))).
+traverseUp(testTraversal(!'test7'),_,testTraversal(!'test7-in')):-builtin:true.
+traverseDown(testTraversal(!'test7'),testTraversal(X),_,_,_):-'/util':assertEqual(X,!'test7-in','/bootstrap':string).
+traverseDown(testTraversal(!'test8'),_,_,2::'/bootstrap':number,_):-builtin:true.
