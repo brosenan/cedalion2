@@ -1,0 +1,16 @@
+'/bootstrap':signature(seq(L)::traversal,[L::'/bootstrap':list(traversal)]).
+'/bootstrap':projection(seq(L)::traversal,'/bootstrap':horiz(['/bootstrap':label(!seq),cpi:vis(L::'/bootstrap':list(traversal),'/bootstrap':vert)])).
+'/util':behavior(seq(L)::traversal,!'should delegate traverseAtomic and traverseUp to the first element', (termTraversal(builtin:succ(4,Y)::'/bootstrap':pred,seq([testTraversal(!'test3')]),TravAfter,_),'/util':assertEqual(TravAfter,seq([testTraversal(!'test3-done')]),traversal))).
+'/util':behavior(seq(L)::traversal,!'should delegate traverseAtomic and traverseUp to the other elements', (termTraversal(builtin:succ(4,Y)::'/bootstrap':pred,seq([testTraversal(!none),testTraversal(!'test3')]),TravAfter,_),'/util':assertEqual(TravAfter,seq([testTraversal(!none),testTraversal(!'test3-done')]),traversal))).
+'/util':behavior(seq(L)::traversal,!'should delegate traverseDown to the first element',builtin:catch((termTraversal(builtin:succ(4,Y)::'/bootstrap':pred,seq([testTraversal(!'test5')]),TraversalAfter,TTermAfter),builtin:fail),testTraversalException(!down),builtin:true)).
+'/util':behavior(seq(L)::traversal,!'should delegate traverseDown to the other elements', (termTraversal(builtin:succ(4,Y)::'/bootstrap':pred,seq([testTraversal(!none),testTraversal(!'test8')]),TraversalAfter,TTermAfter),'/util':assertEqual(TTermAfter,2::'/bootstrap':number,'/bootstrap':typedTerm))).
+'/util':behavior(seq(L)::traversal,!'should delegate traverseRename to the first element', (termTraversal(builtin:succ(4,Y)::'/bootstrap':pred,seq([testTraversal(!'test6')]),TraversalAfter,TTermAfter),'/util':assertEqual(TTermAfter,builtin:'succ123'(4,Y)::'/bootstrap':pred,'/bootstrap':typedTerm))).
+'/util':behavior(seq(L)::traversal,!'should delegate traverseRename to the other elements', (termTraversal(builtin:succ(4,Y)::'/bootstrap':pred,seq([testTraversal(!'test6'),testTraversal(!'test6')]),TraversalAfter,TTermAfter),'/util':assertEqual(TTermAfter,builtin:'succ123123'(4,Y)::'/bootstrap':pred,'/bootstrap':typedTerm))).
+traverseUp(seq([]),_,seq([])):-builtin:true.
+annotation:shrink((traverseUp(seq([First|Rest]),TTerm,seq([FirstPrime|RestPrime])):-builtin:if(traverseUp(First,TTerm,FirstPrime),builtin:true,First::traversal=FirstPrime::traversal),traverseUp(seq(Rest),TTerm,seq(RestPrime)))).
+traverseAtomic(seq([]),TTerm,TTerm,seq([])):-builtin:true.
+annotation:shrink((traverseAtomic(seq([First|Rest]),TTerm1,TTerm3,seq([FirstPrime|RestPrime])):-builtin:if(traverseAtomic(First,TTerm1,TTerm2,FirstPrime),builtin:true, (First::traversal=FirstPrime::traversal,TTerm1=TTerm2)),traverseAtomic(seq(Rest),TTerm2,TTerm3,seq(RestPrime)))).
+traverseDown(seq([]),seq([]),TTerm,TTerm,seq([])):-builtin:true.
+annotation:shrink((traverseDown(seq([First1|Rest1]),seq([First2|Rest2]),TTerm1,TTerm3,seq([First3|Rest3])):-builtin:if(traverseDown(First1,First2,TTerm1,TTerm2,First3),builtin:true, (First2::traversal=First3::traversal,TTerm1=TTerm2)),traverseDown(seq(Rest1),seq(Rest2),TTerm2,TTerm3,seq(Rest3)))).
+traverseRename(seq([]),TTerm,Name,Name):-builtin:true.
+annotation:shrink((traverseRename(seq([First|Rest]),TTerm,Name,NamePrimePrime):-builtin:if(traverseRename(First,TTerm,Name,NamePrime),builtin:true,Name::'/bootstrap':string=NamePrime::'/bootstrap':string),traverseRename(seq(Rest),TTerm,NamePrime,NamePrimePrime))).
