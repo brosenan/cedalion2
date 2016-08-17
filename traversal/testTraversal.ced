@@ -13,3 +13,4 @@ annotation:shrink((traverseRename(testTraversal(!'test6'),TTerm,Name1,Name2):-'/
 traverseUp(testTraversal(!'test7'),_,testTraversal(!'test7-in')):-builtin:true.
 traverseDown(testTraversal(!'test7'),testTraversal(X),_,_,_):-'/util':assertEqual(X,!'test7-in','/bootstrap':string).
 traverseDown(testTraversal(!'test8'),_,_,2::'/bootstrap':number,_):-builtin:true.
+traverseAround(testTraversal(!'test9'),4::'/bootstrap':number,7::'/bootstrap':number,testTraversal(!'test9-done')):-builtin:true.
