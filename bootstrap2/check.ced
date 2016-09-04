@@ -1,0 +1,6 @@
+'/bootstrap':defAtom(bar::'/bootstrap':type).
+'/bootstrap':signature(foo(N)::bar,[N::'/bootstrap':number]).
+'/bootstrap':signature(fooMarker(N)::'/bootstrap':marker,[N::'/bootstrap':number]).
+'/bootstrap':signature(check(TTerm,Path,Marker)::'/bootstrap':pred,[TTerm::'/bootstrap':typedTerm,Path::cpi:path,Marker::'/bootstrap':locMarker]).
+'/util':behavior(check(TTerm,Path,Marker)::'/bootstrap':pred,!'should emit the fooMarker for foo(_)::bar', (check(foo(2)::bar,cpi:path(!'foo.ced',[2,1,3]),'/bootstrap':marker(Path,fooMarker(N))),'/util':assertEqual(Path,cpi:path(!'foo.ced',[2,1,3]),cpi:path),'/util':assertEqual(N,2,'/bootstrap':number))).
+check(foo(N)::bar,Path,'/bootstrap':marker(Path,fooMarker(N))):-builtin:true.
