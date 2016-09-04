@@ -1,0 +1,9 @@
+'/bootstrap':signature('$VAR$'(Name)::_,[Name::'/bootstrap':string]).
+'/bootstrap':signature('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred,[TTerm::'/bootstrap':typedTerm,VNs::'/bootstrap':list('/bootstrap':varName),TAST::'/bootstrap':typedTerm]).
+'/util':behavior('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred,!'should copy ground terms', ('term2ast'([1,2]::'/bootstrap':list('/bootstrap':number),_,TAST),'/util':assertEqual(TAST,[1,2]::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
+'/util':behavior('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred,!'should translate variables to $VAR$(Name)', ('term2ast'([1,X]::'/bootstrap':list('/bootstrap':number),[builtin:varName(X::'/bootstrap':number,!'X')],TAST),'/util':assertEqual(TAST,[1,'$VAR$'(!'X')]::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
+'/util':behavior('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred,!'should keep TTerm unmodified', (TTerm=[1,X]::'/bootstrap':list('/bootstrap':number),'term2ast'([1,X]::'/bootstrap':list('/bootstrap':number),[builtin:varName(X::'/bootstrap':number,!'X')],TAST),'/util':assertStracturallyEqual(TTerm,[1,_]::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
+annotation:shrink(('term2ast'(TTerm,VNs,TAST):-builtin:copyTerm('/bootstrap':pair(TTerm,VNs)::'/bootstrap':pairType('/bootstrap':typedTerm,'/bootstrap':list('/bootstrap':varName)),'/bootstrap':pair(TAST,VNsPrime)::'/bootstrap':pairType('/bootstrap':typedTerm,'/bootstrap':list('/bootstrap':varName))),unifyVarNames(VNsPrime))).
+'/bootstrap':signature(unifyVarNames(VNs)::'/bootstrap':pred,[VNs::'/bootstrap':list('/bootstrap':varName)]).
+unifyVarNames([]):-builtin:true.
+unifyVarNames([builtin:varName('$VAR$'(Name)::_,Name)|Rest]):-unifyVarNames(Rest).
