@@ -1,0 +1,6 @@
+'/bootstrap':signature(pathUp(Old,New)::'/bootstrap':pred,[Old::cpi:path,New::cpi:path]).
+'/util':behavior(pathUp(Old,New)::'/bootstrap':pred,!'should unify New with a path matching the first child of Old', (pathUp(cpi:path(!'foo.ced',[1,2,3]),New),'/util':assertEqual(New,cpi:path(!'foo.ced',[1,2,3,1]),cpi:path))).
+pathUp(cpi:path(File,Path),cpi:path(File,PathPrime)):-'/bootstrap':append(Path,[1],PathPrime,'/bootstrap':number).
+'/bootstrap':signature(pathLeft(Old,New)::'/bootstrap':pred,[Old::cpi:path,New::cpi:path]).
+'/util':behavior(pathLeft(Old,New)::'/bootstrap':pred,!'should unify New with the next sibling of Old', (pathLeft(cpi:path(!'foo.ced',[1,2,3]),New),'/util':assertEqual(New,cpi:path(!'foo.ced',[1,2,4]),cpi:path))).
+annotation:shrink((pathLeft(cpi:path(File,Path),cpi:path(File,PathPrime)):-'/bootstrap':append(Path1,[N],Path,'/bootstrap':number),builtin:succ(N,N1),'/bootstrap':append(Path1,[N1],PathPrime,'/bootstrap':number))).
