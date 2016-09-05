@@ -1,0 +1,5 @@
+'/bootstrap':signature(projectDecorator(TDec,Mode,Container,Proj)::'/bootstrap':pred,[TDec::'/bootstrap':typedTerm,Mode::'/bootstrap':mode,Container::'/bootstrap':string,Proj::'/bootstrap':visualization]).
+'/bootstrap':signature(placeholder(Vis,Path)::'/bootstrap':visualization,[Vis::'/bootstrap':visualization,Path::cpi:path]).
+'/bootstrap':projection(placeholder(Vis,Path)::'/bootstrap':visualization,'/bootstrap':horiz(['/bootstrap':vis(Vis::'/bootstrap':visualization),'/bootstrap':label(! (@)),'/bootstrap':vis(Path::cpi:path)])).
+'/util':behavior(projectDecorator(TDec,Mode,Container,Proj)::'/bootstrap':pred,!'should project the underlying term and place it in a placeholder', (projectDecorator(decoratedAST(3,cpi:path(!'bar.ced',[3,5]),[])::'/bootstrap':number,cpi:default,!test,Proj),'/util':assertEqual(Proj,placeholder('/bootstrap':label(!'3'),cpi:path(!'bar.ced',[3,5])),'/bootstrap':visualization))).
+projectDecorator(decoratedAST(Term,Path,_)::Type,_,_,placeholder(Proj,Path)):-project(Term::Type,_,_,Proj).
