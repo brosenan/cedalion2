@@ -1,0 +1,11 @@
+'/bootstrap':signature(astCompund(TTerm)::'/bootstrap':pred,[TTerm::'/bootstrap':typedTerm]).
+'/util':behavior(astCompund(TTerm)::'/bootstrap':pred,!'should succeed if TTerm is a compound term',astCompund([]::'/bootstrap':list(_))).
+'/util':behavior(astCompund(TTerm)::'/bootstrap':pred,!'should fail for a number',\+astCompund(3::'/bootstrap':number)).
+'/util':behavior(astCompund(TTerm)::'/bootstrap':pred,!'should fail for an AST variable',\+astCompund('$VAR$'(!'Name')::'/bootstrap':list('/bootstrap':number))).
+astCompund(TTerm):-builtin:compound(TTerm),\+astVar(TTerm).
+'/bootstrap':signature(astVar(TTerm)::'/bootstrap':pred,[TTerm::'/bootstrap':typedTerm]).
+'/util':behavior(astVar(TTerm)::'/bootstrap':pred,!'should succeed for a named variable',astVar('$VAR$'(!'Name')::'/bootstrap':number)).
+'/util':behavior(astVar(TTerm)::'/bootstrap':pred,!'should fail if the name is not a string',\+astVar('$VAR$'(_)::'/bootstrap':number)).
+'/util':behavior(astVar(TTerm)::'/bootstrap':pred,!'should succeed for an unnamed variable',astVar('$VAR$'::'/bootstrap':pred)).
+astVar('$VAR$'(Name)::_):-builtin:string(Name::'/bootstrap':string).
+astVar('$VAR$'::_):-builtin:true.
