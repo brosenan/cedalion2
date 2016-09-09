@@ -1,0 +1,7 @@
+'/bootstrap':signature(pathToStr(Path,Str)::'/bootstrap':pred,[Path::cpi:path,Str::'/bootstrap':string]).
+'/util':behavior(pathToStr(Path,Str)::'/bootstrap':pred,!'should convert an empty path to the filename followed by :', (pathToStr(cpi:path(!'foo.ced',[]),Str),'/util':assertEqual(Str,!'foo.ced:','/bootstrap':string))).
+'/util':behavior(pathToStr(Path,Str)::'/bootstrap':pred,!'should convert the path numbers into letters', (pathToStr(cpi:path(!'foo.ced',[1,2,3]),Str),'/util':assertEqual(Str,!'foo.ced:ABC','/bootstrap':string))).
+pathToStr(cpi:path(Name,Path),Str):-pathToLetterCodes(Path,LetterCodes),builtin:charCodes(Letters,LetterCodes),'/Functional':eval('/Functional':applyBinOp('/Functional':applyBinOp('/Functional':const(Name),'/Functional':concat,'/Functional':const(! (:))),'/Functional':concat,'/Functional':const(Letters)),'/bootstrap':string,Str).
+'/bootstrap':signature(pathToLetterCodes(Path,LetterCodes)::'/bootstrap':pred,[Path::'/bootstrap':list('/bootstrap':number),LetterCodes::'/bootstrap':list('/bootstrap':number)]).
+pathToLetterCodes([],[]):-builtin:true.
+pathToLetterCodes([N|Path],[L|LetterCodes]):-'/Functional':eval('/Functional':applyBinOp('/Functional':const(N),'/Functional':numPlus,'/Functional':const(64)),'/bootstrap':number,L),pathToLetterCodes(Path,LetterCodes).

@@ -1,0 +1,7 @@
+'/bootstrap':signature(strToPath(Str,Path)::'/bootstrap':pred,[Str::'/bootstrap':string,Path::cpi:path]).
+'/util':behavior(strToPath(Str,Path)::'/bootstrap':pred,!'should convert a string ending with : to an empty path', (strToPath(!'foo.ced:',Path),'/util':assertEqual(Path,cpi:path(!'foo.ced',[]),cpi:path))).
+'/util':behavior(strToPath(Str,Path)::'/bootstrap':pred,!'should convert letters to numbers', (strToPath(!'foo.ced:CBA',Path),'/util':assertEqual(Path,cpi:path(!'foo.ced',[3,2,1]),cpi:path))).
+strToPath(Str,cpi:path(Name,Path)):-builtin:charCodes(Str,Codes),'/bootstrap':append(NameCodes,[annotation:minComment(58,!'ASCII code of :')|LetterCodes],Codes,'/bootstrap':number),builtin:charCodes(Name,NameCodes),letterCodesToPath(LetterCodes,Path).
+'/bootstrap':signature(letterCodesToPath(LetterCodes,Path)::'/bootstrap':pred,[LetterCodes::'/bootstrap':list('/bootstrap':number),Path::'/bootstrap':list('/bootstrap':number)]).
+letterCodesToPath([],[]):-builtin:true.
+letterCodesToPath([L|LetterCodes],[N|Path]):-'/Functional':eval('/Functional':applyBinOp('/Functional':const(L),'/Functional':minus,'/Functional':const(64)),'/bootstrap':number,N),letterCodesToPath(LetterCodes,Path).
