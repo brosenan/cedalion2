@@ -5,3 +5,4 @@
 '/util':behavior(check(TTerm,Path,Marker)::'/bootstrap':pred,!'should emit the fooMarker for foo(_)::bar in container test', ('/containers':callInContainer(!test,check(foo(2)::bar,cpi:path(!'foo.ced',[2,1,3]),'/bootstrap':marker(Path,fooMarker(N)))),'/util':assertEqual(Path,cpi:path(!'foo.ced',[2,1,3]),cpi:path),'/util':assertEqual(N,2,'/bootstrap':number))).
 'test@/bootstrap2':check('test@/bootstrap2':foo(N)::'test@/bootstrap2':bar,Path,'test@/bootstrap':marker(Path,'test@/bootstrap2':fooMarker(N))).
 'test@/containers':exists:-builtin:true.
+check(_,_,_):-builtin:fail.
