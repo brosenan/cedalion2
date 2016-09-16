@@ -6,8 +6,6 @@
 '/util':behavior(seq(Cmd1,Cmd2)::'/Functional':expr(action),!'should evaluate to the second action if the first action is "done"', ('/Functional':eval(seq('/Functional':const(done),'/Functional':const(done)),action,Done),'/util':assertEqual(Done,done,action))).
 '/bootstrap':defAtom(question::'/bootstrap':type).
 '/bootstrap':defAtom(interaction::'/bootstrap':type).
-'/bootstrap':sigProj(cont(Interaction,Cont)::action,[Interaction::interaction,Cont::'/Functional':expr(action)],'/bootstrap':horiz(['/bootstrap':vis(Interaction::interaction),'/bootstrap':symbol(8674),'/bootstrap':lowered('/bootstrap':background('/bootstrap':vis(Cont::'/Functional':expr(action)),cpi:rgb(255,255,255)))])).
-'/bootstrap':sigProj(qna(Question,Answer)::interaction,[Question::question,Answer::'/bootstrap':typedTerm],'/bootstrap':horiz(['/bootstrap':vis(Question::question),'/bootstrap':label(! (?)),'/bootstrap':vis(Answer::'/bootstrap':typedTerm)])).
 '/bootstrap':defAtom(someInteraction::interaction).
 '/util':behavior(seq(Cmd1,Cmd2)::'/Functional':expr(action),!'should evaluate to a continuation if the first action is a continuation', ('/Functional':eval(seq('/Functional':const(cont(someInteraction,Cont)),'/Functional':const(done)),action,Action),'/util':assertEqual(Action,cont(someInteraction,seq(Cont,'/Functional':const(done))),action))).
 '/bootstrap':signature(throw(Q)::action,[Q::question]).

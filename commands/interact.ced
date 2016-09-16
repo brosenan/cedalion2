@@ -1,0 +1,6 @@
+'/bootstrap':sigProj(cont(Interaction,Cont)::action,[Interaction::interaction,Cont::'/Functional':expr(action)],'/bootstrap':vert(['/bootstrap':horiz(['/bootstrap':brackets('/bootstrap':vis(Interaction::interaction),8826,8827),'/bootstrap':label(! (;))]),'/bootstrap':lowered('/bootstrap':background('/bootstrap':vis(Cont::'/Functional':expr(action)),cpi:rgb(255,255,255)))])).
+'/bootstrap':sigProj(qna(Question,Answer)::interaction,[Question::question,Answer::'/bootstrap':typedTerm],'/bootstrap':horiz(['/bootstrap':vis(Question::question),'/bootstrap':label(! (?)),'/bootstrap':vis(Answer::'/bootstrap':typedTerm)])).
+'/bootstrap':sigProj(interact(Interaction)::'/Functional':expr(action),[Interaction::interaction],'/bootstrap':brackets('/bootstrap':vis(Interaction::interaction),8826,8827)).
+'/bootstrap':adapter(Interaction::interaction,interact(Interaction)::'/Functional':expr(action)).
+'/util':behavior(interact(Interaction)::'/Functional':expr(action),!'should evaluate to a continuation with done', ('/Functional':eval(interact(someInteraction(5)),action,Action),'/util':assertEqual(Action,cont(someInteraction(5),'/Functional':const(done)),action))).
+'/Functional':def(interact(Interaction),action,'/Functional':const(cont(Interaction,'/Functional':const(done)))).
