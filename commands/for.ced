@@ -1,0 +1,10 @@
+'/bootstrap':signature(for(Goal,Cmd)::'/Functional':expr(action),[Goal::'/bootstrap':pred,Cmd::'/Functional':expr(action)]).
+'/bootstrap':projection(for(Goal,Cmd)::'/Functional':expr(action),'/bootstrap':vert(['/bootstrap':horiz(['/bootstrap':label(!for),'/bootstrap':vis(Goal::'/bootstrap':pred),'/bootstrap':label(! (:))]),'/bootstrap':horiz(['/bootstrap':label(!'    '),'/bootstrap':vis(Cmd::'/Functional':expr(action))])])).
+'/util':behavior(for(Goal,Cmd)::'/Functional':expr(action),!'should evaluate to done if Goal fails', ('/Functional':eval(for(builtin:fail,'/Functional':const(cont(someInteraction,'/Functional':const(done)))),action,Action),'/util':assertEqual(Action,done,action))).
+'/util':behavior(for(Goal,Cmd)::'/Functional':expr(action),!'should apply Cmd once if Goal succeeds (once)', ('/Functional':eval(for(builtin:true,'/Functional':const(cont(someInteraction,'/Functional':const(done)))),action,Action),'/util':assertEqual(Action,cont(someInteraction,seq('/Functional':const(done),'/Functional':const(done))),action))).
+'/bootstrap':signature(someInteraction(X)::interaction,[X::'/bootstrap':number]).
+'/util':behavior(for(Goal,Cmd)::'/Functional':expr(action),!'should apply Cmd multiple times if Goal succeeds multiple times', ('/Functional':eval(for('/bootstrap':listMember(X,'/bootstrap':number,[1,2,3]),'/Functional':const(cont(someInteraction(X),'/Functional':const(done)))),action,Action),'/util':assertEqual(Action,cont(someInteraction(1),seq('/Functional':const(done),seq('/Functional':const(cont(someInteraction(2),'/Functional':const(done))),seq('/Functional':const(cont(someInteraction(3),'/Functional':const(done))),'/Functional':const(done))))),action))).
+'/Functional':def(for(Goal,Cmd),action,'/Functional':where(CmdPrime, (builtin:findall(Cmd,'/Functional':expr(action),Goal,Cmds),listToCmd(Cmds,CmdPrime)))).
+'/bootstrap':signature(listToCmd(Cmds,CmdPrime)::'/bootstrap':pred,[Cmds::'/bootstrap':list('/Functional':expr(action)),CmdPrime::'/Functional':expr(action)]).
+listToCmd([],'/Functional':const(done)):-builtin:true.
+listToCmd([Cmd1|Cmds],seq(Cmd1,CmdPrime)):-listToCmd(Cmds,CmdPrime).
