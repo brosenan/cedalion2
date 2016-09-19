@@ -1,0 +1,9 @@
+'/bootstrap':signature(traverseAtPath(Path,Trav)::traversal,[Path::'/bootstrap':list('/bootstrap':number),Trav::traversal]).
+'/bootstrap':projection(traverseAtPath(Path,Trav)::traversal,'/bootstrap':horiz(['/bootstrap':vis(Path::'/bootstrap':list('/bootstrap':number)),'/bootstrap':label(! (:)),'/bootstrap':vis(Trav::traversal)])).
+'/bootstrap':disabled('/util':behavior(traverseAtPath(Path,Trav)::traversal,!'should apply Trav from Path', (termTraversal((builtin:succ(4,4):-builtin:true)::'/bootstrap':statement,traverseAtPath([1,2],testTraversal(!'test9'),cpi:path(!'',[])),!local,_,Result::'/bootstrap':statement),'/util':assertEqual((builtin:succ(4,7):-builtin:true),Result,'/bootstrap':statement)))).
+'/bootstrap':signature(traverseAtPath(Path,Trav,Curr)::traversal,[Path::'/bootstrap':list('/bootstrap':number),Trav::traversal,Curr::cpi:path]).
+traverseUp(traverseAtPath(Path,Trav),_::_,traverseAtPath(Path,Trav,_)):-builtin:true.
+annotation:shrink((traverseAround(traverseAtPath(Target,Trav,cpi:path(File,Curr)),TTerm,!foo::'/bootstrap':string,traverseAtPath(Target,Trav,cpi:path(File,CurrPrime))):- \+'/bootstrap':append(Curr,_,Target,'/bootstrap':number),pathLeft(cpi:path(File,Curr),cpi:path(File,CurrPrime)))).
+'/bootstrap':disabled((traverseUp(traverseAtPath(Path,Trav,cpi:path(_,Path)),_::_,Trav):-builtin:true)).
+annotation:shrink((traverseUp(traverseAtPath(Target,Trav,cpi:path(File,Curr)),_,traverseAtPath(Target,Trav,cpi:path(File,CurrPrime))):-'/bootstrap':append(Curr,_,Target,'/bootstrap':number),pathUp(cpi:path(File,Curr),cpi:path(File,CurrPrime)))).
+'/bootstrap':disabled(annotation:shrink((traverseAround(traverseAtPath(Path,Trav,cpi:path(File,Path)),TTerm,TTermPrime,traverseAtPath(Path,TravPrime,cpi:path(File,PathPrime))):-pathLeft(cpi:path(File,Path),cpi:path(File,PathPrime)),termTraversal(TTerm,Trav,!local,TravPrime,TTermPrime)))).
