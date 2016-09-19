@@ -1,13 +1,17 @@
 '/bootstrap':signature('$VAR$'(Name)::_,[Name::'/bootstrap':string]).
 '/bootstrap':defAtom('$VAR$'::_).
 '/bootstrap':signature('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred,[TTerm::'/bootstrap':typedTerm,VNs::'/bootstrap':list('/bootstrap':varName),TAST::'/bootstrap':typedTerm]).
-'/util':behavior('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred,!'should copy ground terms', ('term2ast'([1,2]::'/bootstrap':list('/bootstrap':number),_,TAST),'/util':assertEqual(TAST,[1,2]::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
-'/util':behavior('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred,!'should translate variables to $VAR$(Name)', ('term2ast'([1,X]::'/bootstrap':list('/bootstrap':number),[builtin:varName(X::'/bootstrap':number,!'X')],TAST),'/util':assertEqual(TAST,[1,'$VAR$'(!'X')]::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
-'/util':behavior('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred,!'should keep TTerm unmodified', (TTerm=[1,X]::'/bootstrap':list('/bootstrap':number),'term2ast'([1,X]::'/bootstrap':list('/bootstrap':number),[builtin:varName(X::'/bootstrap':number,!'X')],TAST),'/util':assertStracturallyEqual(TTerm,[1,_]::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
-'/util':behavior('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred,!'should treat variables not in VNs as singleton $VAR$', (TTerm=[1,X]::'/bootstrap':list('/bootstrap':number),'term2ast'([1,X]::'/bootstrap':list('/bootstrap':number),[],TAST),'/util':assertStracturallyEqual(TAST,[1,'$VAR$']::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
-annotation:shrink(('term2ast'(TTerm,VNs,TAST):-'/traversal':termTraversal(TTerm,'term2ast'(VNs),_,TAST))).
+'/bootstrap':deprecated('term2ast'(TTerm,VNs,TAST)::'/bootstrap':pred).
+'/bootstrap':signature('term2ast'(TTerm,VNs,Container,TAST)::'/bootstrap':pred,[TTerm::'/bootstrap':typedTerm,VNs::'/bootstrap':list('/bootstrap':varName),Container::'/bootstrap':string,TAST::'/bootstrap':typedTerm]).
+'/bootstrap':deprecationReplacement('term2ast'(TTerm,VNs,TAST),'/bootstrap':pred,'term2ast'(TTerm,VNs,!local,TAST)).
+'/util':behavior('term2ast'(TTerm,VNs,Container,TAST)::'/bootstrap':pred,!'should copy ground terms', ('term2ast'([1,2]::'/bootstrap':list('/bootstrap':number),_,!local,TAST),'/util':assertEqual(TAST,[1,2]::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
+'/util':behavior('term2ast'(TTerm,VNs,Container,TAST)::'/bootstrap':pred,!'should translate variables to $VAR$(Name)', ('term2ast'([1,X]::'/bootstrap':list('/bootstrap':number),[builtin:varName(X::'/bootstrap':number,!'X')],!local,TAST),'/util':assertEqual(TAST,[1,'$VAR$'(!'X')]::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
+'/util':behavior('term2ast'(TTerm,VNs,Container,TAST)::'/bootstrap':pred,!'should keep TTerm unmodified', (TTerm=[1,X]::'/bootstrap':list('/bootstrap':number),'term2ast'([1,X]::'/bootstrap':list('/bootstrap':number),[builtin:varName(X::'/bootstrap':number,!'X')],!local,TAST),'/util':assertStracturallyEqual(TTerm,[1,_]::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
+'/util':behavior('term2ast'(TTerm,VNs,Container,TAST)::'/bootstrap':pred,!'should treat variables not in VNs as singleton $VAR$', (TTerm=[1,X]::'/bootstrap':list('/bootstrap':number),'term2ast'([1,X]::'/bootstrap':list('/bootstrap':number),[],!local,TAST),'/util':assertStracturallyEqual(TAST,[1,'$VAR$']::'/bootstrap':list('/bootstrap':number),'/bootstrap':typedTerm))).
+annotation:shrink(('term2ast'(TTerm,VNs,Container,TAST):-'/traversal':termTraversal(TTerm,'term2ast'(VNs),Container,_,TAST))).
 '/bootstrap':signature('term2ast'(VNs)::'/traversal':traversal,[VNs::'/bootstrap':list('/bootstrap':varName)]).
 annotation:shrink(('/traversal':traverseAtomic('term2ast'(VNs),Var::Type,'$VAR$'(Name)::Type,'term2ast'(VNs)):-builtin:var(Var::Type),varName(Var::Type,VNs,Name))).
 annotation:shrink(('/traversal':traverseAtomic('term2ast'(VNs),Var::Type,'$VAR$'::Type,'term2ast'(VNs)):-builtin:var(Var::Type),\+varName(Var::Type,VNs,Name))).
 '/bootstrap':signature(varName(TVar,VNs,Name)::'/bootstrap':pred,[TVar::'/bootstrap':typedTerm,VNs::'/bootstrap':list('/bootstrap':varName),Name::'/bootstrap':string]).
 annotation:shrink((varName(TVar,[builtin:varName(TVarPrime,NamePrime)|VNs],Name):-builtin:if(builtin:equals(TVar,TVarPrime),Name::'/bootstrap':string=NamePrime::'/bootstrap':string,varName(TVar,VNs,Name)))).
+'/bootstrap':disabled(('term2ast'(TTerm,VNs,TAST):-'term2ast'(TTerm,VNs,!local,TAST))).

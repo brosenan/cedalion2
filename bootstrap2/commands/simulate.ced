@@ -1,0 +1,7 @@
+'/bootstrap':signature(simulate(Interactions,Cmd)::'/Functional':expr(action),[Interactions::'/bootstrap':list(interaction),Cmd::'/Functional':expr(action)]).
+'/bootstrap':projection(simulate(Interactions,Cmd)::'/Functional':expr(action),'/bootstrap':horiz(['/bootstrap':vis(Cmd::'/Functional':expr(action)),'/bootstrap':label(!with),'/bootstrap':vis(Interactions::'/bootstrap':list(interaction))])).
+'/util':behavior(simulate(Interactions,Cmd)::'/Functional':expr(action),!'should evaluate to Cmd if Interactions is empty', ('/Functional':eval(simulate([],interact(someInteraction)),action,Action),'/util':assertEqual(Action,cont(someInteraction,'/Functional':const(done)),action))).
+'/util':behavior(simulate(Interactions,Cmd)::'/Functional':expr(action),!'should evaluate to the continuation if Interaction is not empty', ('/Functional':eval(simulate([someInteraction(3)],seq(interact(someInteraction(N)),interact(someInteraction(N)))),action,Action),'/util':assertEqual(Action,cont(someInteraction(3),'/Functional':const(done)),action))).
+'/Functional':def(simulate([],Cmd),action,Cmd).
+'/bootstrap':signature(commandDoesNotMatchSimulation(Cmd,First)::'/bootstrap':exception,[Cmd::'/Functional':expr(action),First::interaction]).
+annotation:shrink('/Functional':def(simulate([First],Cmd),action,'/Functional':switch(Cmd,action,'/Functional':case(cont(First,Cont),Cont,'/Functional':otherwise('/Functional':where(_,builtin:throw(commandDoesNotMatchSimulation(Cmd,First)))))))).
