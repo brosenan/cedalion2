@@ -15,3 +15,4 @@ traverseDown(testTraversal(!'test7'),testTraversal(X),_,_,_):-'/util':assertEqua
 traverseDown(testTraversal(!'test8'),_,_,2::'/bootstrap':number,_):-builtin:true.
 traverseAround(testTraversal(!'test9'),4::'/bootstrap':number,7::'/bootstrap':number,testTraversal(!'test9-done')):-builtin:true.
 traverseDown(testTraversal(!'test10'),testTraversal(!'test10-1'),4::'/bootstrap':number,5::'/bootstrap':number,testTraversal(!'test10-2')):-builtin:true.
+traverseAtomic(testTraversal(!'test11'),2::'/bootstrap':number,3::'/bootstrap':number,testTraversal(!'test11')):-builtin:true.
