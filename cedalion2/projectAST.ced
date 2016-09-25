@@ -1,5 +1,0 @@
-'/bootstrap':signature(testProjection(File,Proj)::'/bootstrap':pred,[File::'/bootstrap':string,Proj::'/bootstrap':visualization]).
-testProjection(File,Proj):-builtin:findall(S,'/bootstrap':statement, (builtin:loadedStatement(File,SPrime,VNs),'term2ast'(SPrime::'/bootstrap':statement,VNs,!local,S::'/bootstrap':statement)),AST),projectAST(AST::'/bootstrap':list('/bootstrap':statement),cpi:path(!'foo.ced',[0]),!local,Proj).
-'/bootstrap':disabled('/bootstrap':unitTest(testProjection(!'/home/cedalion/git/cedalion2/cedalion2/projectAST.ced',_))).
-'/bootstrap':signature(projectAST(AST,Path,Container,Proj)::'/bootstrap':pred,[AST::'/bootstrap':typedTerm,Path::cpi:path,Container::'/bootstrap':string,Proj::'/bootstrap':visualization]).
-annotation:shrink((projectAST(AST,Path,Container,Proj):-'/traversal':termTraversal(AST,decorateAST(Path,Container,[]),Container,_,DAST),projectDecorator(DAST,'/bootstrap':vert,Container,ProjPrime),'/traversal':termTraversal(ProjPrime::'/bootstrap':visualization,postProcProj(Container),Container,_,Proj::'/bootstrap':visualization))).

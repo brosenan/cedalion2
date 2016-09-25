@@ -1,0 +1,8 @@
+'/bootstrap':signature(runInContainer(Goal,Cont)::'/bootstrap':pred,[Goal::'/bootstrap':pred,Cont::'/bootstrap':string]).
+'/bootstrap':projection(runInContainer(Goal,Cont)::'/bootstrap':pred,'/bootstrap':horiz(['/bootstrap':vis(Goal::'/bootstrap':pred),'/bootstrap':label(! (@)),'/bootstrap':vis(Cont::'/bootstrap':string)])).
+'/bootstrap':signature(bar(X)::'/bootstrap':pred,[X::'/bootstrap':number]).
+'/util':behavior(runInContainer(Goal,Cont)::'/bootstrap':pred,!'should run Goal in container Cont', (runInContainer(bar(X),!test),'/util':assertEqual(X,4,'/bootstrap':number))).
+'/util':behavior(runInContainer(Goal,Cont)::'/bootstrap':pred,!'should run Goal the local context if Cont is local', (runInContainer(bar(X),!local),'/util':assertEqual(X,5,'/bootstrap':number))).
+runInContainer(Goal,Cont):-builtin:if(Cont::'/bootstrap':string=!local::'/bootstrap':string,Goal,'/containers':callInContainer(Cont,Goal)).
+'test@/cedalion2':bar(4):-builtin:true.
+bar(5):-builtin:true.
