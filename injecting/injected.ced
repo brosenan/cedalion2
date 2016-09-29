@@ -1,0 +1,6 @@
+'/bootstrap':signature(injected(Goal,Frag)::'/bootstrap':pred,[Goal::'/bootstrap':pred,Frag::fragment]).
+'/bootstrap':projection(injected(Goal,Frag)::'/bootstrap':pred,'/bootstrap':horiz(['/bootstrap':vis(Frag::fragment),'/bootstrap':label(! (:)),'/bootstrap':vis(Goal::'/bootstrap':pred)])).
+'/util':behavior(injected(Goal,Frag)::'/bootstrap':pred,!'should call Goal while replacing it with Frag', (injected('test2'(X),myFragment),'/util':assertEqual(X,3,'/bootstrap':number))).
+injected(Goal,Frag):-'/bootstrap2':termTraversal(Goal::'/bootstrap':pred,inject(Frag),_,GoalPrime::'/bootstrap':pred),GoalPrime.
+'/bootstrap':signature('test2'(X)::'/bootstrap':pred,[X::'/bootstrap':number]).
+'/injecting:myFragment':'test2'(3):-builtin:true.
