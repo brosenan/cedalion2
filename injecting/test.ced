@@ -1,0 +1,3 @@
+'/bootstrap':defAtom('test1'::'/bootstrap':pred).
+'test1':-builtin:true.
+injectThisFile(myFragment).
