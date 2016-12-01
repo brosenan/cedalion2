@@ -1,0 +1,2 @@
+'/bootstrap':signature(ced:edit(Path,TOld,TNew)::'/Functional':expr('/bootstrap2/commands':action),[Path::cpi:path,TOld::'/bootstrap':typedTerm,TNew::'/bootstrap':typedTerm]).
+'/bootstrap':projection(ced:edit(Path,TOld,TNew)::'/Functional':expr('/bootstrap2/commands':action),'/bootstrap':horiz(['/bootstrap':label(!edit),'/bootstrap':vis(TOld::'/bootstrap':typedTerm),'/bootstrap':symbol(8608),'/bootstrap':vis(TNew::'/bootstrap':typedTerm),'/bootstrap':label(!at),'/bootstrap':vis(Path::cpi:path)])).
