@@ -6,3 +6,7 @@
 check(foo(N)::bar,Path,'/bootstrap':marker(Path,fooMarker(N))):-builtin:true.
 'test@/containers':exists:-builtin:true.
 check(_,_,_):-builtin:fail.
+'/util':behavior(check(TTerm,Path,Marker)::'/bootstrap':pred,!'should apply /bootstrap:check if Path is a top-level statement',check((builtin:fail:-builtin:true)::'/bootstrap':statement,cpi:path(!'foo.ced',[2,1]),'/bootstrap':marker(cpi:path(!'foo.ced',[2,1]),'/bootstrap':topLevel))).
+'/util':behavior(check(TTerm,Path,Marker)::'/bootstrap':pred,!'should apply not /bootstrap:check if Path is not a top-level statement',\+check((builtin:fail:-builtin:true)::'/bootstrap':statement,cpi:path(!'foo.ced',[2]),'/bootstrap':marker(cpi:path(!'foo.ced',[2]),'/bootstrap':topLevel))).
+'/util':behavior(check(TTerm,Path,Marker)::'/bootstrap':pred,!'should extract variable names',check(('$VAR$'(!'X'):-builtin:true)::'/bootstrap':statement,cpi:path(!'foo.ced',[1]),'/bootstrap':marker(cpi:path(!'foo.ced',[1,1]),'/bootstrap':varType(_::'/bootstrap':pred)))).
+check(TTerm,Path,MarkerPrime):-'ast2term'(TTerm,TTermPrime,VNs),'/bootstrap':statementPath(Path),'/bootstrap':check(Path,TTermPrime,VNs,Marker),'term2ast'(Marker::'/bootstrap':locMarker,VNs,MarkerPrime::'/bootstrap':locMarker).
